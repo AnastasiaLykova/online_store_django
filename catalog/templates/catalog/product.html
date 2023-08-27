@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+{% load custom_tags %}
+
+<div class="row text-left">
+    <div class="card mb-3" style="max-width: 740px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{ object.preview|mediapath }}" height="200" />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h6 class="card-title" >{{object.name}}</h6>
+            <p class="card-text">{{object.description}}</p>
+            <p class="card-text">Категория: {{object.category}}</p>
+            <p class="card-text">Цена: ${{object.price}}</p>
+            <p class="card-text">Дата создания: {{object.creation_date}}</p>
+            <p class="card-text">Дата последнего изменения: {{object.modified_date}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{%endblock%}
