@@ -22,6 +22,16 @@
               <a type="button" class="btn btn-outline-success" href="/product/{{ object.pk }}/">$ {{ object.price}}</a>
               <a type="button" class="btn btn-outline-secondary" href="{% url 'catalog:update_product' object.pk%}">Edit</a>
               <a type="button" class="btn btn-outline-danger" href="{% url 'catalog:delete_product' object.pk%}">Delete</a>
+                  <div class="text">
+                      {% if not object.version_set.all %}
+                        <p>Нет активных версий</p>
+                      {% endif %}
+                    {% for version in object.version_set.all %}
+                        {% if version.is_current %}
+                            <p>Активная версия: {{ version.version_name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                  </div>
           </div>
         </div>
       </div>
