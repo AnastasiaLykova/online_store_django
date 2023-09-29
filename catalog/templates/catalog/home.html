@@ -2,12 +2,12 @@
 
 {% block content %}
 {% load custom_tags %}
-<div class="row text-center  mb-3">
+<div class="row text-center  mb-3">{% if user.is_authenticated %}
     <a type="button" class="btn btn-success" href="{% url 'catalog:create_product' %}">Создать продукт</a>
 </div>
 <div class="row text-center  mb-3">
     <a type="button" class="btn btn-success" href="{% url 'catalog:create_version' %}">Добавить версию</a>
-</div>
+</div>{% endif %}
 <div class="row text-center">
     {% for object in object_list%}
     <div class="card mb-3" style="max-width: 540px;">
@@ -20,8 +20,13 @@
             <h6 class="card-title" >{{ object.name }}</h6>
             <p class="card-text">{{ object.description|slice:"100"}}...</p>
               <a type="button" class="btn btn-outline-success" href="/product/{{ object.pk }}/">$ {{ object.price}}</a>
-              <a type="button" class="btn btn-outline-secondary" href="{% url 'catalog:update_product' object.pk%}">Edit</a>
-              <a type="button" class="btn btn-outline-danger" href="{% url 'catalog:delete_product' object.pk%}">Delete</a>
+              {% if user.is_authenticated %}
+              <a type="button" class="btn btn-outline-secondary" href="{% url 'catalog:update_product' object.pk%}">
+                  Edit
+                  </a>
+              <a type="button" class="btn btn-outline-danger" href="{% url 'catalog:delete_product' object.pk%}">
+                  Delete
+                  </a>{% endif %}
                   <div class="text">
                       {% if not object.version_set.all %}
                         <p>Нет активных версий</p>
