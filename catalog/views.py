@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
+from catalog.services import get_categories_from_cache
 
 
 class ProductListView(ListView):
@@ -83,3 +84,10 @@ class VersionCreateView(CreateView):
     success_url = reverse_lazy('catalog:home')
     template_name = 'users/register.html'
 
+
+def categories(request):
+    context = {
+        'object_list': get_categories_from_cache(),
+        'title': 'Категории',
+    }
+    return render(request, 'catalog/categories.html', context)
